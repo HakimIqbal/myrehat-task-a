@@ -2,8 +2,21 @@
 /* Template Name: Trails Test Page */
 get_header();
 ?>
+<!-- A3: Sticky contact bar for WhatsApp and LINE with bold text -->
+<div class="trails-sticky-contact">
+  <div class="contact-buttons-container">
+    <a href="https://wa.me/" class="btn-contact btn-whatsapp" target="_blank" rel="noopener noreferrer">
+      <strong>WhatsApp</strong>
+    </a>
+    <a href="https://line.me/" class="btn-contact btn-line" target="_blank" rel="noopener noreferrer">
+      <strong>LINE</strong>
+    </a>
+  </div>
+</div>
+
 <header class="site-header-trails">
-  <h1>Hiking Advantures</h1>
+  <!-- A5: Exact Title Requirement -->
+  <h1>Tropic Hiking Trails</h1>
   <p>Find your next trail with MyRehat</p>
   <input id="main-search" type="text" placeholder="Search homepage...">
 </header>
@@ -59,10 +72,46 @@ get_header();
 
   <section class="trails-booking">
     <h2><?php echo esc_html( myrehat_test_booking_title() ); ?></h2>
-    <form id="booking-form">
+    <form id="booking-form" method="post">
+      <!-- Nonce & Form Identifier for Backend Security (B2 Sync) -->
+      <input type="hidden" name="trails_booking" value="1">
+      <?php wp_nonce_field( 'trails_booking_action', 'trails_booking_nonce' ); ?>
+
       <label>Name <input type="text" name="name" required></label>
       <label>Date <input type="date" name="date" required></label>
-      <p id="trails-total">Total: -</p>
+
+      <!-- A11: Duration Radio Options (Daily vs Monthly) -->
+      <fieldset class="booking-duration-group">
+        <legend>Booking Duration</legend>
+        <label class="radio-label">
+          <input type="radio" name="duration" value="daily" checked>
+          <span>Daily (RM 350)</span>
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="duration" value="monthly">
+          <span>Monthly (RM 8.400)</span>
+        </label>
+      </fieldset>
+
+      <!-- A6: Digital Nomad Requirement -->
+      <div class="form-field">
+        <label for="digital-nomad">Are you a Digital Nomad? <span class="required">*</span></label>
+        <select id="digital-nomad" name="digital_nomad" required>
+          <option value="" disabled selected>Please select...</option>
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+      </div>
+
+      <!-- A9: Host Terms Checkbox Agreement -->
+      <div class="form-field checkbox-field">
+        <label for="host-terms">
+          <input type="checkbox" id="host-terms" name="host_terms" required>
+          <span>I agree to the Host Terms <span class="required">*</span></span>
+        </label>
+      </div>
+
+      <p id="trails-total">Total: RM 350</p>
       <button type="submit">Request booking</button>
     </form>
     <div id="trails-confirmation" hidden></div>
@@ -70,17 +119,24 @@ get_header();
 </main>
 
 <footer class="trails-footer">
-  <nav>
+  <!-- A4: Cleaned navigation (exactly 4 links) -->
+  <nav class="trails-footer-nav" aria-label="Footer Navigation">
     <a href="#">FAQ</a>
     <a href="#">Contact Us</a>
     <a href="#">PDPA</a>
-    <a href="#">Privacy Policy Statement</a>
-    <a href="#">Blog</a>
-    <a href="#">Careers</a>
-    <a href="#">Terms of Service</a>
-    <a href="#">Sitemap</a>
-    <a href="#">Twitter</a>
+    <a href="#">Privacy Policy</a>
   </nav>
+
+  <!-- A8: Social Media Links Section -->
+  <div class="trails-social-links" aria-label="Social Media">
+    <span class="social-title">Follow Us:</span>
+    <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">Facebook</a>
+    <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
+    <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">Instagram</a>
+    <a href="https://tiktok.com/" target="_blank" rel="noopener noreferrer" aria-label="TikTok">TikTok</a>
+    <a href="https://youtube.com/" target="_blank" rel="noopener noreferrer" aria-label="YouTube">YouTube</a>
+  </div>
+
   <p>&copy; 2026 MyRehat</p>
 </footer>
 <?php get_footer(); ?>
